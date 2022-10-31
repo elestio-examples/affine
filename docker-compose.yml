@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+    toeverything:
+        image: 'ghcr.io/toeverything/affine:nightly-server-latest'
+        ports:
+            - '3200:3000'
