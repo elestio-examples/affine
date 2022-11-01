@@ -6,7 +6,9 @@ ports:
     targetIP: "172.17.0.1"
     public: true
     path: "/"
-    isAuth: false
+    isAuth: true
+    login: "root"
+    password: "random_password"
 environments:
   - key: ADMIN_PASSWORD
     value: "random_password"
@@ -50,5 +52,5 @@ lifeCycleConfig:
 webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Affine Admin"
-    login: "[ADMIN_EMAIL]"
+    login: "root"
     password: "[ADMIN_PASSWORD]"
