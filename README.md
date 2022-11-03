@@ -10,5 +10,5 @@ Deploy Affine Search server with CI/CD on Elestio
 
 # Once deployed ...
 
-    Login: [ADMIN_EMAIL]
+    Login: root
     password: [ADMIN_PASSWORD]
