@@ -8,7 +8,7 @@ ports:
     path: "/"
     isAuth: true
     login: "root"
-    password: "[ADMIN_PASSWORD]"
+    password: "random_password"
 environments:
   - key: ADMIN_PASSWORD
     value: "random_password"
