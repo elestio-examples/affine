@@ -8,30 +8,10 @@ ports:
     path: "/"
     isAuth: true
     login: "root"
-    password: "random_password"
+    password: "[ADMIN_PASSWORD]"
 environments:
   - key: ADMIN_PASSWORD
     value: "random_password"
-  - key: "ADMIN_EMAIL"
-    value: "[EMAIL]"
-  - key: "ANYMAIL"
-    value: "True"
-  - key: "DEFAULT_FROM_EMAIL"
-    value: "[DOMAIN]@vm.elestio.app"
-  - key: "EMAIL_HOST"
-    value: "172.17.0.1"
-  - key: "EMAIL_PORT"
-    value: "25"
-  - key: "EMAIL_HOST_USER"
-    value: ""
-  - key: "EMAIL_HOST_PASSWORD"
-    value: ""
-  - key: "EMAIL_USE_TLS"
-    value: "False"
-  - key: "EMAIL_USE_SSL"
-    value: "False"
-  - key: "DOMAIN"
-    value: "[CI_CD_DOMAIN]"
 
 config:
   runTime: "dockerCompose"
