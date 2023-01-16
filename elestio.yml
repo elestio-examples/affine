@@ -10,6 +10,8 @@ ports:
     login: "root"
     password: "random_password"
 environments:
+  - key: "SOFTWARE_VERSION_TAG"
+    value: "latest"
   - key: ADMIN_PASSWORD
     value: "random_password"
 
