@@ -2,7 +2,7 @@ pwd=$(pwd)
 
 mv "$pwd"/.github/deployment/Dockerfile "$pwd"
 
-cat << EOT > "$pwd"/Dockerfile
+cat << EOT > Dockerfile
 FROM node:16-alpine as relocate
 RUN yarn install
 RUN yarn build
@@ -22,7 +22,7 @@ COPY --from=relocate /app .
 EXPOSE 3000
 ENV API_SERVER=$API_SERVER
 CMD ["caddy", "run"]
-` > Dockerfile
+EOT
 
 sed -i "s~:80~:3000~g" "$pwd"/.github/deployment/Caddyfile
 
