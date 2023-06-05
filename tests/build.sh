@@ -2,7 +2,7 @@ pwd=$(pwd)
 
 mv "$pwd"/.github/deployment/Dockerfile "$pwd"
 
-echo `
+cat << EOT > "$pwd"/Dockerfile
 FROM node:16-alpine as relocate
 RUN yarn install
 RUN yarn build
