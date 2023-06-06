@@ -4,8 +4,11 @@ mv "$pwd"/.github/deployment/Dockerfile "$pwd"
 
 cd "$pwd"/apps/web
 
+echo "Installing"
 yarn install;
+echo "Building"
 npm run build;
+echo "Exporting"
 npm run export;
 
 cd "$pwd"
