@@ -2,6 +2,8 @@ pwd=$(pwd)
 
 mv "$pwd"/.github/deployment/Dockerfile "$pwd"
 
+sleep 30s;
+
 cd "$pwd"/apps/web
 
 echo "Installing"
