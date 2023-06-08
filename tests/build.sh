@@ -19,4 +19,3 @@ sed -i "s~EXPOSE 80~EXPOSE 3000~g" ./Dockerfile
 sed -i "s~:80~:3000~g" "$pwd"/.github/deployment/Caddyfile
 
 docker build . --tag elestio4test/affine:latest;
-TAG_TO_CHANGE
