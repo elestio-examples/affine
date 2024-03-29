@@ -1,9 +1,60 @@
-version: '3.3'
 services:
-    affine:
-        restart: always
-        image: 'ghcr.io/toeverything/affine-self-hosted:${SOFTWARE_VERSION_TAG}'
-        ports:
-            - '172.17.0.1:3200:3000'
-        volumes:
-            - ./data:/app/data
+  affine:
+    image: ghcr.io/toeverything/affine-graphql:${SOFTWARE_VERSION_TAG}
+    restart: always
+    command:
+      ['sh', '-c', 'node ./scripts/self-host-predeploy && node ./dist/index.js']
+    ports:
+      - '172.17.0.1:3010:3010'
+      - '172.17.0.1:5555:5555'
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      # custom configurations
+      - ./data/config:/root/.affine/config
+      # blob storage
+      - ./data/storage:/root/.affine/storage
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '1000m'
+    environment:
+      - NODE_OPTIONS="--import=./scripts/register.js"
+      - AFFINE_CONFIG_PATH=/root/.affine/config
+      - REDIS_SERVER_HOST=redis
+      - DATABASE_URL=postgres://affine:${ADMIN_PASSWORD}@postgres:5432/affine
+      - NODE_ENV=production
+      - AFFINE_ADMIN_EMAIL=${ADMIN_EMAIL}
+      - AFFINE_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - MAILER_HOST=${MAILER_HOST}
+      - MAILER_PORT=${MAILER_PORT}
+      - MAILER_SENDER=${MAILER_SENDER}
+      - AFFINE_SERVER_HOST=${DOMAIN}
+  redis:
+    image: elestio/redis
+    restart: always
+    volumes:
+      - ./redis:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  postgres:
+    image: elestio/postgres
+    restart: always
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U affine']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_USER: affine
+      POSTGRES_PASSWORD: ${ADMIN_PASSWORD}
+      POSTGRES_DB: affine
+      PGDATA: /var/lib/postgresql/data/pgdata
