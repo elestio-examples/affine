@@ -3,10 +3,10 @@ services:
     image: ghcr.io/toeverything/affine-graphql:${SOFTWARE_VERSION_TAG}
     restart: always
     command:
-      ['sh', '-c', 'node ./scripts/self-host-predeploy && node ./dist/index.js']
+      ["sh", "-c", "node ./scripts/self-host-predeploy && node ./dist/index.js"]
     ports:
-      - '172.17.0.1:3010:3010'
-      - '172.17.0.1:5555:5555'
+      - "172.17.0.1:3010:3010"
+      - "172.17.0.1:5555:5555"
     depends_on:
       redis:
         condition: service_healthy
@@ -18,9 +18,9 @@ services:
       # blob storage
       - ./data/storage:/root/.affine/storage
     logging:
-      driver: 'json-file'
+      driver: "json-file"
       options:
-        max-size: '1000m'
+        max-size: "1000m"
     environment:
       - NODE_OPTIONS="--import=./scripts/register.js"
       - AFFINE_CONFIG_PATH=/root/.affine/config
@@ -39,7 +39,7 @@ services:
     volumes:
       - ./redis:/data
     healthcheck:
-      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -49,7 +49,7 @@ services:
     volumes:
       - ./postgres:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U affine']
+      test: ["CMD-SHELL", "pg_isready -U affine"]
       interval: 10s
       timeout: 5s
       retries: 5

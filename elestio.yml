@@ -6,7 +6,7 @@ ports:
     targetIP: "172.17.0.1"
     public: true
     path: "/"
-    isAuth: true
+    isAuth: false
     login: "root"
     password: "random_password"
 environments:
